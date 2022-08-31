@@ -40,30 +40,28 @@ export function Coffee({
 
     console.log({ newProduct })
 
-    setCart((prevState) =>
-      prevState.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            quantity: item.quantity + count,
-            total: item.total + price * count,
+    setCart((prevState) => {
+      if (prevState.length > 0) {
+        return prevState.map((item) => {
+          if (item.id === id) {
+            return {
+              ...item,
+              quantity: item.quantity + count,
+              total: item.total + price * count,
+            }
+          } else {
+            return item
           }
-        } else {
-          return newProduct
-        }
-      }),
-    )
+        })
+      }
+      return [...prevState, newProduct]
+    })
   }
 
   return (
     <div>
-      <p>{name}</p>
-      <p>{descricao}</p>
-      <p>{tags}</p>
-      <p>
-        {price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-      </p>
       <img src={image} alt={descricao} />
+      <p>{name}</p>
       <button
         onClick={() => setCount((state) => (state > 0 ? state - 1 : state))}
       >
