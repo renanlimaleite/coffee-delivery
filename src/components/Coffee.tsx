@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useCartContext } from '../contexts/CartContext'
 
 interface CoffeeProps {
   name: string
@@ -7,14 +8,6 @@ interface CoffeeProps {
   tags: string
   price: number
   id: string
-}
-
-type CartProps = {
-  id: string
-  name: string
-  quantity: number
-  price: number
-  total: number
 }
 
 export function Coffee({
@@ -26,35 +19,16 @@ export function Coffee({
   price,
 }: CoffeeProps) {
   const [count, setCount] = useState(0)
-  const [cart, setCart] = useState<CartProps[]>([])
-  console.log(cart)
+  const { addToCart } = useCartContext()
 
-  function addToCart() {
-    const newProduct = {
+  function handleAddToCart() {
+    addToCart({
       id,
       name,
+      descricao,
       price,
       quantity: count,
-      total: price * count,
-    }
-
-    console.log({ newProduct })
-
-    setCart((prevState) => {
-      if (prevState.length > 0) {
-        return prevState.map((item) => {
-          if (item.id === id) {
-            return {
-              ...item,
-              quantity: item.quantity + count,
-              total: item.total + price * count,
-            }
-          } else {
-            return item
-          }
-        })
-      }
-      return [...prevState, newProduct]
+      total: count * price,
     })
   }
 
@@ -73,7 +47,7 @@ export function Coffee({
       </button>
 
       {/* DISPARA FUNÇÃO AQUI */}
-      <button onClick={addToCart} type="button">
+      <button onClick={handleAddToCart} type="button">
         Adicionar
       </button>
     </div>
