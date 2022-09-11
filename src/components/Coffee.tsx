@@ -22,6 +22,11 @@ export function Coffee({
   const { addToCart } = useCartContext()
 
   function handleAddToCart() {
+    // Trocar para toast
+    if (count <= 0) {
+      alert('Você deve adicionar ao menos 1 item')
+      return
+    }
     addToCart({
       id,
       name,

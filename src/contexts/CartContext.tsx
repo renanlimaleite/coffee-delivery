@@ -53,11 +53,14 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
       const productExists = prevState.find((prd) => prd.id === id)
 
       if (productExists) {
-        return prevState.map((prd) => ({
-          ...prd,
-          total: prd.total + prd.quantity * prd.price,
-          quantity: prd.quantity + quantity,
-        }))
+        return prevState.map((prd) => {
+          console.log(prd.total, prd.quantity, prd.price)
+          return {
+            ...prd,
+            total: prd.total + prd.quantity * prd.price,
+            quantity: prd.quantity + quantity,
+          }
+        })
       } else {
         return [...prevState, { id, name, descricao, total, price, quantity }]
       }
