@@ -8,6 +8,9 @@ export const defaultTheme = {
 
   'brand-yellow': '#DBAC2C',
   'brand-yellow-dark': '#C47F17',
+  'brand-yellow-light': '#F1E9C9',
 
   'brand-purple': '#8047F8',
+  'brand-purple-dark': '#4B2995',
+  'brand-purple-light': '#EBE5F9',
 }
